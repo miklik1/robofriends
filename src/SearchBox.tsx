@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
-const SearchBox = () => {
+const SearchBox = ({ searchChange }: any) => {
   return (
     <div className='pa2'>
-      <input className='pa3 ba b--green bg-lightest-blue' type='search' placeholder='Search Robots..' />
+      <input className='pa3 ba b--green bg-lightest-blue' type='search' placeholder='Search Robots..' onChange={searchChange} />
     </div>
   );
 }
