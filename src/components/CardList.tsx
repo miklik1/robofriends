@@ -1,14 +1,14 @@
-import React, { Fragment } from "react";
-import Card from "./Card";
+import React, { Fragment } from 'react'
+import Card from './Card'
 
 interface ICard {
-  id: number,
-  name?: string,
-  username: string,
+  id: number
+  name?: string
+  username: string
   email: string
 }
 
-const CardList = ({ robots } : any) => {
+const CardList = ({ robots }: any) => {
   return (
     <Fragment>
       {robots.map((user: ICard, i: number) => {
@@ -19,10 +19,10 @@ const CardList = ({ robots } : any) => {
             username={robots[i].username}
             email={robots[i].email}
           />
-        );
+        )
       })}
     </Fragment>
-  );
-};
+  )
+}
 
-export default CardList;
+export default CardList

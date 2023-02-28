@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'MavenPro';
+  font-style: normal;
+  font-weight: bold;
+  src: local('MavenPro'), url('./assets/MavenPro-VariableFont_wght.ttf') format('ttf');
+}
+
+h1 {
+  font-family: MavenPro;
+}
+
+
