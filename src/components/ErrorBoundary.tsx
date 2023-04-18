@@ -1,30 +1,30 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react'
+import React, { Component, type ErrorInfo, type ReactNode } from 'react'
 
 interface IProps {
-  children?: ReactNode;
+  children?: ReactNode
 }
 
 interface IState {
-  hasError: boolean;
+  hasError: boolean
 }
 
 class ErrorBoundary extends Component<IProps, IState> {
-  constructor(props: any) {
+  constructor (props: any) {
     super(props)
     this.state = {
       hasError: false
     }
   }
 
-  public static getDerivedStateFromError(_: Error): IState {
-    return { hasError: true };
+  public static getDerivedStateFromError (_: Error): IState {
+    return { hasError: true }
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error("Uncaught error:", error, errorInfo);
+  public componentDidCatch (error: Error, errorInfo: ErrorInfo) {
+    console.error('Uncaught error:', error, errorInfo)
   }
 
-  public render() {
+  public render () {
     if (this.state.hasError) {
       return <h1>Ooops. That's not good..</h1>
     }

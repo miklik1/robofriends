@@ -1,47 +1,56 @@
-import React, { useState, useEffect } from "react";
-import CardList from "../components/CardList";
-import SearchBox from "../components/SearchBox";
-import Scroll from "../components/Scroll";
-import ErrorBoundary from "../components/ErrorBoundary";
-import "./App.css";
-import "tachyons";
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import CardList from '../components/CardList'
+import SearchBox from '../components/SearchBox'
+import Scroll from '../components/Scroll'
+import ErrorBoundary from '../components/ErrorBoundary'
+import './App.css'
 
-function App(props: any) {
-  const [robots, setRobots] = useState([]);
-  const [searchfield, setSearchfield] = useState("");
+import { setSearchField, requestRobots } from '../actions'
+
+const mapStateToProps: any = (state: any) => {
+  return {
+    searchField: state.searchRobots.searchField,
+    robots: state.requestRobots.robots,
+    isPending: state.requestRobots.isPending,
+    error: state.requestRobots.error
+  }
+}
+
+const mapDispatchToProps: any = (dispatch: any) => {
+  return {
+    onSearchChange: (event: any) => dispatch(setSearchField(event.target.value)),
+    onRequestRobots: () => dispatch(requestRobots())
+  }
+}
+
+function App (props: any): React.ReactElement {
 
   useEffect(() => {
-    console.log("halo")
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then(async (response) => {
-        return await response.json();
-      })
-      .then((users): any => {
-        setRobots(users);
-      });
-  }, []);
+    props.onRequestRobots()
+  }, [])
 
-  const onSearchChange = (event: any) => {
-    setSearchfield(event.target.value);
-    console.log("halo")
-  };
+  const { searchField, onSearchChange, robots, isPending } = props
 
   const filteredRobots = robots.filter((robot: { username: string }) => {
-    return robot.username?.toLowerCase().includes(searchfield.toLowerCase());
-  });
-  return !robots.length ? (
+    return robot.username?.toLowerCase().includes(searchField.toLowerCase())
+  })
+
+  return isPending
+    ? (
     <h1>Loading</h1>
-  ) : (
+      )
+    : (
     <div className="tc">
       <h1 className="white f1">Robofriends</h1>
-      <SearchBox searchChange={onSearchChange} />
+      <SearchBox searchChange={ onSearchChange } />
       <Scroll>
         <ErrorBoundary>
           <CardList robots={filteredRobots} />
         </ErrorBoundary>
       </Scroll>
     </div>
-  );
+      )
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App)
