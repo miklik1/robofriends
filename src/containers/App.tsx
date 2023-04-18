@@ -5,11 +5,13 @@ import Scroll from "../components/Scroll";
 import ErrorBoundary from "../components/ErrorBoundary";
 import "./App.css";
 import "tachyons";
-function App() {
+
+function App(props: any) {
   const [robots, setRobots] = useState([]);
   const [searchfield, setSearchfield] = useState("");
 
   useEffect(() => {
+    console.log("halo")
     fetch("https://jsonplaceholder.typicode.com/users")
       .then(async (response) => {
         return await response.json();
@@ -21,6 +23,7 @@ function App() {
 
   const onSearchChange = (event: any) => {
     setSearchfield(event.target.value);
+    console.log("halo")
   };
 
   const filteredRobots = robots.filter((robot: { username: string }) => {
