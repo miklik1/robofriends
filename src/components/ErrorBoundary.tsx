@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component, ErrorInfo, ReactNode } from 'react'
 
-interface IState {
-  hasError: boolean
+interface IProps {
+  children?: ReactNode;
 }
 
-class ErrorBoundary extends Component<Record<string, unknown>, IState> {
+interface IState {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<IProps, IState> {
   constructor(props: any) {
     super(props)
     this.state = {
@@ -12,11 +16,15 @@ class ErrorBoundary extends Component<Record<string, unknown>, IState> {
     }
   }
 
-  componentDidCatch(error: any, info: any) : any {
-    this.setState({ hasError: true })
+  public static getDerivedStateFromError(_: Error): IState {
+    return { hasError: true };
   }
 
-  render() {
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+
+  public render() {
     if (this.state.hasError) {
       return <h1>Ooops. That's not good..</h1>
     }
