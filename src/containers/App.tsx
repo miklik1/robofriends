@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
+import Header from '../components/Header'
 import CardList from '../components/CardList'
 import SearchBox from '../components/SearchBox'
 import Scroll from '../components/Scroll'
@@ -42,7 +43,7 @@ function App (props: any): React.ReactElement {
       )
     : (
     <div className="tc">
-      <h1 className="white f1">Robofriends</h1>
+      <Header />
       <SearchBox searchChange={ onSearchChange } />
       <Scroll>
         <ErrorBoundary>
